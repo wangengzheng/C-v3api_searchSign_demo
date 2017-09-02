@@ -1,0 +1,160 @@
+{
+  "name": "app_schema_demo",
+  "type": "advance",
+  "schema": {
+    "indexes": {
+      "search_fields": {
+        "id": {
+          "fields": [
+            "id"
+          ]
+        },
+        "name": {
+          "fields": [
+            "name"
+          ],
+          "analyzer": "chn_standard"
+        },
+        "phone": {
+          "fields": [
+            "phone"
+          ],
+          "analyzer": "fuzzy"
+        },
+        "int_arr": {
+          "fields": [
+            "int_arr"
+          ]
+        },
+        "literal_arr": {
+          "fields": [
+            "literal_arr"
+          ]
+        },
+        "cate_id": {
+          "fields": [
+            "cate_id"
+          ]
+        }
+      },
+      "filter_fields": [
+        "id",
+        "int_arr",
+        "literal_arr",
+        "float_arr",
+        "cate_id"
+      ]
+    },
+    "tables": {
+      "tab": {
+        "name": "tab",
+        "fields": {
+          "id": {
+            "name": "id",
+            "type": "INT",
+            "primary_key": true
+          },
+          "name": {
+            "name": "name",
+            "type": "TEXT",
+            "primary_key": false
+          },
+          "phone": {
+            "name": "phone",
+            "type": "SHORT_TEXT",
+            "primary_key": false
+          },
+          "int_arr": {
+            "name": "int_arr",
+            "type": "INT_ARRAY",
+            "primary_key": false
+          },
+          "literal_arr": {
+            "name": "literal_arr",
+            "type": "LITERAL_ARRAY",
+            "primary_key": false
+          },
+          "float_arr": {
+            "name": "float_arr",
+            "type": "FLOAT_ARRAY",
+            "primary_key": false
+          },
+          "cate_id": {
+            "name": "cate_id",
+            "type": "INT",
+            "primary_key": false
+          }
+        },
+        "primary_table": true
+      }
+    },
+    "route_field": null
+  },
+  "data_sources": [],
+  "suggest": {},
+  "first_ranks": {
+    "cp": {
+      "name": "cp",
+      "description": "",
+      "active": false,
+      "meta": [
+        {
+          "attribute": "static_bm25()",
+          "arg": "",
+          "weight": 1
+        },
+        {
+          "attribute": "exact_match_boost()",
+          "arg": "",
+          "weight": 2
+        }
+      ]
+    }
+  },
+  "second_ranks": {
+    "jp": {
+      "name": "jp",
+      "meta": "if(id==kvpairs_value(station_id_key, INT),100,0)+first_phase_score()",
+      "active": false,
+      "description": ""
+    }
+  },
+  "summary": [],
+  "fetch_fields": [
+    "id",
+    "name",
+    "phone",
+    "int_arr",
+    "literal_arr",
+    "float_arr",
+    "cate_id"
+  ],
+  "query_processors": {
+    "qp": {
+      "name": "qp",
+      "processors": [
+        {
+          "name": "stop_word"
+        },
+        {
+          "name": "spell_check"
+        },
+        {
+          "name": "term_weighting"
+        },
+        {
+          "name": "synonym"
+        }
+      ],
+      "indexes": [
+        "_ALL_INDEXES_"
+      ],
+      "id": "74736"
+    }
+  },
+  "quota": {
+    "qps": 5,
+    "doc_size": 0.2,
+    "type": "free"
+  }
+}
